@@ -1,0 +1,790 @@
+openapi: 3.0.3
+info:
+  title: Swagger MicroBanco - Reactive Banking Platform 3.0
+  description: |-
+    The "MicroBanco" project aims to develop a modern banking platform, based on microservices architecture implemented in Java 8. Using MongoDB as a NoSQL database management system, we focus on reactivity and functional programming to create an efficient system and scalable.
+    
+    - `Development of microservices with Java 8 and the use of Maven for dependency management.`
+    - `Implementation of REST drivers to facilitate communication and interoperability.`
+    - `Use of dependency injection to achieve a modular and maintainable design.`
+    - `Integration of MongoDB as a NoSQL data repository with the support of Spring Data.`
+    - `Application of functional and reactive programming principles to achieve an agile and efficient system.`
+    - `Using Lombok to reduce redundant code and improve readability.`
+    - `Emphasis on the implementation of essential banking functionalities and queries through REST endpoints.`
+    - `Verification of functionalities through Postman and documentation in Swagger.`
+    
+   
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: https://localhost.swagger.io/api/v3
+tags:
+  - name: Client
+    description: Everything about your Clients
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+  - name: Credit
+    description: Everything about your Credits
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+  - name: Account
+    description: Everything about your Accounts
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+  - name: Operations
+    description: Everything about your Operations
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+  - name: Querys
+    description: Everything about your Querys
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io 
+paths:
+  /client:
+    post:
+      tags:
+        - Client
+      summary: Add a new client
+      description: Add a new client to the bank
+      operationId: addClient
+      requestBody:
+        description: Create a new client to the bank
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Client'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Client'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '400':
+          description: Invalid input
+        '422':
+          description: Validation exception
+    get:
+      tags:
+        - Client
+      summary: Returns all clients
+      description: Returns a map of all clients
+      operationId: getAllClients
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+                  format: int32
+  /client/{clientId}:
+    get:
+      tags:
+        - Client
+      summary: Find client by ID
+      description: Returns a single client
+      operationId: getClientById
+      parameters:
+        - name: clientId
+          in: path
+          description: ID of pet to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+    put:
+      tags:
+        - Client
+      summary: Update client
+      description: Update information for an existing client.
+      operationId: updateClientById
+      parameters:
+        - name: clientId
+          in: path
+          description: clientId that need to be updated
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update information for an existing client.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Client'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Client'
+      responses:
+        default:
+          description: successful operation
+    delete:
+      tags:
+        - Client
+      summary: Delete a client by ID.
+      description: delete a client
+      operationId: deleteClientById
+      parameters:
+        - name: clientId
+          in: path
+          description: Client id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid pet value
+  /account:
+    post:
+      tags:
+        - Account
+      summary: Add a new account
+      description: Add a new account to the bank
+      operationId: addAccount
+      requestBody:
+        description: Create a new account to the bank
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Client'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Client'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '400':
+          description: Invalid input
+        '422':
+          description: Validation exception
+    get:
+      tags:
+        - Account
+      summary: Returns all accounts
+      description: Returns a map of all accounts
+      operationId: getAllAccounts
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+                  format: int32
+  /account/{accountId}:
+    get:
+      tags:
+        - Account
+      summary: Find account by ID
+      description: Returns a single account
+      operationId: getAccountById
+      parameters:
+        - name: accountId
+          in: path
+          description: ID of account to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Account not found
+    put:
+      tags:
+        - Account
+      summary: Update account
+      description: Update information for an existing account.
+      operationId: updateAccountById
+      parameters:
+        - name: accountId
+          in: path
+          description: accountId that need to be updated
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update information for an existing account.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Account'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Account'
+      responses:
+        default:
+          description: successful operation
+    delete:
+      tags:
+        - Account
+      summary: Delete a account by ID.
+      description: delete a account
+      operationId: deleteAccountById
+      parameters:
+        - name: accountId
+          in: path
+          description: Account id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid account value
+  /credit:
+    post:
+      tags:
+        - Credit
+      summary: Add a new credit
+      description: Add a new credit to the bank
+      operationId: addCredit
+      requestBody:
+        description: Create a new credit to the bank
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credit'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Credit'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Credit'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credit'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Credit'
+        '400':
+          description: Invalid input
+        '422':
+          description: Validation exception
+    get:
+      tags:
+        - Credit
+      summary: Returns all credits
+      description: Returns a map of all credits
+      operationId: getAllCredits
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+                  format: int32
+  /credit/{creditId}:
+    get:
+      tags:
+        - Credit
+      summary: Find credit by ID
+      description: Returns a single credit
+      operationId: getCreditById
+      parameters:
+        - name: creditId
+          in: path
+          description: ID of credit to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credit'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Credit'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: credit not found
+    put:
+      tags:
+        - Credit
+      summary: Update credit
+      description: Update information for an existing credit.
+      operationId: updateCreditById
+      parameters:
+        - name: creditId
+          in: path
+          description: creditId that need to be updated
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update information for an existing credit.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credit'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Credit'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Credit'
+      responses:
+        default:
+          description: successful operation
+    delete:
+      tags:
+        - Credit
+      summary: Delete a credit by ID.
+      description: delete a credit
+      operationId: deleteCreditById
+      parameters:
+        - name: creditId
+          in: path
+          description: credit id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid credit value
+  /query/balance/{clientId}:
+    get:
+      tags:
+        - Querys
+      summary: Find balance by clientID
+      description: Check available balances for a client.
+      operationId: getBalanceByClientId
+      parameters:
+        - name: clientId
+          in: path
+          description: ID of client that needs to be pay off
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BalanceQuery'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/BalanceQuery'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Order not found
+  /query/movements/{creditId}:
+    get:
+      tags:
+        - Querys
+      summary: Find movements by clientID
+      description: Check available movements for a client.
+      operationId: getMovementsByClientId
+      parameters:
+        - name: creditId
+          in: path
+          description: ID of client that needs to be pay off
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovementsQuery'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/MovementsQuery'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Movements not found
+  /operations/deposit:
+    post:
+      tags:
+        - Operations
+      summary: Add a new deposit
+      description: Add a new deposit to the bank
+      operationId: addOperationsDeposit
+      requestBody:
+        description: Create a new deposit to the bank
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Operations'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Operations'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Operations'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operations'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Operations'
+        '400':
+          description: Invalid input
+        '422':
+          description: Validation exception
+  /operations/withdrawal:
+    post:
+      tags:
+        - Operations
+      summary: Add a new withdrawal
+      description: Add a new withdrawal to the bank
+      operationId: addOperationsWithdrawal
+      requestBody:
+        description: Create a new withdrawal to the bank
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Operations'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Operations'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Operations'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operations'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Operations'
+        '400':
+          description: Invalid input
+        '422':
+          description: Validation exception
+  /operations/pay:
+    post:
+      tags:
+        - Operations
+      summary: Add a new pay
+      description: Add a new pay to the bank
+      operationId: addOperationsPay
+      requestBody:
+        description: Create a new pay to the bank
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Operations'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Operations'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Operations'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operations'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Operations'
+        '400':
+          description: Invalid input
+        '422':
+          description: Validation exception
+  /operations/charge-consumption:
+    post:
+      tags:
+        - Operations
+      summary: Add a new charge consumption
+      description: Add a new charge-consumption to the bank
+      operationId: addOperationsChargeConsumption
+      requestBody:
+        description: Create a new charge consumption to the bank
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Operations'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Operations'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Operations'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operations'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Operations'
+        '400':
+          description: Invalid input
+        '422':
+          description: Validation exception
+
+components:
+  schemas:
+    Client:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+        typeClient:
+          type: string
+          description: Client Type
+          example: personal
+          enum:
+            - personal
+            - business
+        address:
+          type: object
+          properties:
+            street:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            codePostal:
+              type: string
+        phone:
+          type: string
+        email:
+          type: string
+        admissionDate:
+          type: string
+          format: date-time
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+      required:
+        - name
+        - typeClient
+      xml:
+        name: Client
+    Account:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 100000
+        typeAccount:
+          type: string
+          description: type Accounts
+          enum:
+            - savings_accounts
+            - checking_accounts
+            - fixed_terms
+        number:
+          type: string
+        balance:
+          type: number
+        headlines:
+          type: array
+          items:
+            type: string
+        signatoriesAuthorized:
+          type: array
+          items:
+            type: string
+      required:
+        - typeAccount
+        - number
+        - balance  
+      xml:
+        name: Account
+    Credit:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        typeCredit:
+          type: string
+          description: Credit Type
+          example: personal
+          enum:
+            - personal
+            - business
+        limitCredit:
+          type: number
+        currentBalance:
+          type: number
+      xml:
+        name: Credit
+    Operations:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        typeOperation:
+          type: string
+          description: Operation Type
+          example: deposit
+          enum:
+            - deposit
+            - withdrawal
+            - pay
+            - charge-consumption
+        accountId:
+          type: string
+        creditId:
+          type: string
+        amount:
+          type: number
+      required:
+        - typeOperation
+        - amount
+      xml:
+        name: Operations
+    BalanceQuery:
+      type: object
+      properties:
+        balance:
+          type: number
+      required:
+        - balance
+      xml:
+        name: Balance
+    MovementsQuery:
+      type: object
+      properties:
+        typeOperation:
+          type: "string"
+        amount:
+          type: "number"
+        date:
+          type: "string"
+      required:
+        - typeOperation
+        - amount
+        - date
+      xml:
+          name: MovementsQuery
+
+  requestBodies:
+    Client:
+      description: Pet object that needs to be added to the store
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Client'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Client'
+    UserArray:
+      description: List of user object
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Client'
+
